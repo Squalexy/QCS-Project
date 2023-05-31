@@ -1,2 +1,2 @@
 g++ -o code code.cpp
-./code.exe
+./code.exe < test_cases/inputs/alex_input1 > test_cases/outputs/output1.out
