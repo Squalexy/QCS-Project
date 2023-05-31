@@ -13,6 +13,58 @@ vector<int> time_, dp, degree, right_order;
 vector<bool> visited, stack_, visited_childs, visited_parents;
 priority_queue<int, vector<int>, greater<int>> pq;
 
+void printVectorOfVectors(const std::vector<std::vector<int>> &matrix)
+{
+    cout << "Matrix:" << endl;
+    int counter = 0;
+    for (const auto &row : matrix)
+    {
+        cout << "Row " << counter++ << ": ";
+        for (const auto &element : row)
+        {
+            cout << element << " ";
+        }
+        cout << endl;
+    }
+    cout << "=====================" << endl;
+}
+
+void printVector(const std::vector<int> &vect)
+{
+    cout << "Vector:" << endl;
+    for (const auto &element : vect)
+    {
+        cout << element << " ";
+    }
+    cout << endl;
+
+    cout << "=====================" << endl;
+}
+void printVectorB(const std::vector<bool> &vect)
+{
+    cout << "Vector:" << endl;
+    for (const auto &element : vect)
+    {
+        cout << element << " ";
+    }
+    cout << endl;
+
+    cout << "=====================" << endl;
+}
+
+void printPriorityQueue(const std::priority_queue<int, std::vector<int>, std::greater<int>> &pq)
+{
+    std::priority_queue<int, std::vector<int>, std::greater<int>> tempPQ = pq; // Create a copy of the priority_queue
+    cout << "Queue:" << endl;
+    while (!tempPQ.empty())
+    {
+        std::cout << tempPQ.top() << " "; // Print the top element
+        tempPQ.pop();                     // Remove the top element
+    }
+
+    std::cout << std::endl;
+}
+
 int first;
 
 int number_of_tasks;
@@ -119,26 +171,37 @@ void print_childs(int n)
 
 void mininum_amount_of_time_AND_sequence()
 {
+    printVectorOfVectors(childs);
 
     degree = vector<int>(number_of_tasks + 1, 0);
     visited = vector<bool>(number_of_tasks + 1, false);
     visited[first] = true;
-
+    // cout << "HERE\n";
+    // cout << number_of_tasks << endl;
     cout << accumulate(time_.begin(), time_.end(), 1) << endl;
     cout << first << endl;
 
     // call childs
     for (size_t i = 0; i < childs[first].size(); ++i)
     {
+        // cout << " " << i << " " << childs[first][i] << endl;
         degree[childs[first][i]]++;
+
+        // printVectorOfVectors(parents);
+        // printVector(degree);
 
         if (degree[childs[first][i]] == (int)parents[childs[first][i]].size())
         {
+            // cout << "Inside " << childs[first][i] << endl;
             pq.push(childs[first][i]);
         }
     }
-
+    // printPriorityQueue(pq);
+    // cout << "=================\n";
     print_childs(pq.top());
+    // printVector(degree);
+    // printPriorityQueue(pq);
+    // printVectorB(visited);
 }
 
 void recursion(int node)
